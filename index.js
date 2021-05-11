@@ -51,7 +51,7 @@ app.post('/staff', (req, res)=> {
 }) 
 
 //update a staff in the database
-app.post
+// app.post
 
 //Delete a staff from the database
 // app.delete
