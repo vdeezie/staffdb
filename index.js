@@ -51,7 +51,23 @@ app.post('/staff', (req, res)=> {
 }) 
 
 //update a staff in the database
-// app.post
+app.put('/staff', (req, res)=> {
+    client.connect((err, connectedClient) => {
+        if (err) {
+            return res.status(500).json({message: err})
+        } 
+        const db = connectedClient.db();
+        db.collection("staff").updateOne({
+            name: req.body.name,
+            position: req.body.position,
+            email: req.body.email,
+            country: req.body.country
+        }, (err, result) => {
+                if(err) return res.status(500).json({message: err});
+                return res.status(200).json({message: "new staff has been updated to database" })
+        })
+    })
+}) 
 
 //Delete a staff from the database
 // app.delete
