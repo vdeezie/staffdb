@@ -32,14 +32,14 @@ const staffSchema = new mongoose.Schema ({
 });
 const Staff = mongoose.model('Staff', staffSchema)
 
-//to get the list of available staff on the database
-app.post('/staff', function (req, res) {
-    const staff = req.body.staff;
+//creates a new staff 
+app.post('/staff', (req, res) => {
+
     Staff.create({
-        name: staff.name,
-        position: staff.position,
-        email: staff.email,
-        country: staff.country
+        name: req.body.name,
+        position: req.body.position,
+        email: req.body.email,
+        country: req.body.country
     }, (err, newStaff) => {
         if (err) {
             return res.status(500).json({message: err})
@@ -49,10 +49,53 @@ app.post('/staff', function (req, res) {
     })
 })
 
-// //Add a new staff to the database
+// fetches all staff data and send to client
+app.get('/staff', (req, res) => {
+    Staff.find({}, (err, staff) =>{
+        if(err) {
+            return res.status(500).json ({message: err})
+        } else {
+            return res. status(200).json({ staff })
+        }
+    })
+})
+
+// fetches staff data by Id and send response to client
+app.get('/staff/:id', (req, res) => {
+    Staff.findById(req.params.id, (err, staff) =>{
+        if(err) {
+            return res.status(500).json ({message: err})
+        } else if (!staff) {
+            return res. status(404).json ({message: "staff not found"})
+        } else { 
+            return res. status(200).json({ staff })
+        }
+    })
+})
 
 //update a staff in the database
-
+app.put('/staff/:id', (req, res) => {
+    Staff.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        position: req.body.position,
+        email: req.body.email
+    }, (err, staff) => {
+        if (err) {
+            return res.status(500).json ({message: err}) 
+        } else if (!staff) {
+            return res. status(404).json ({message: "staff not found"})
+        }   else { 
+            staff.save((err, savedStaff) => {
+                if (err) {
+                    return res. status(400).json ({message: err})
+                } else {
+                  return res.status(200).json ({message: "staff updated succesfully"})
+                }
+            });
+        } 
+    })    
+}) 
+ 
 
 //Delete a staff from the database
 // app.delete
