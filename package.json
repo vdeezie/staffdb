@@ -1,11 +1,12 @@
 {
   "name": "bookstore",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a basic crud app which fetches staff data, adds, update and deletes on mongod",
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^3.6.6"
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
@@ -15,5 +16,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdeezie/staffdb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vdeezie/staffdb/issues"
+  },
+  "homepage": "https://github.com/vdeezie/staffdb#readme"
 }
