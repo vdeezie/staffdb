@@ -1,7 +1,7 @@
 //require express module
 const express = require ('express');
 const app = express();
-const port = 5000; 
+const port = process.env.PORT || 5000; 
 
 //set up mongoose
 const mongoose = require ('mongoose');
