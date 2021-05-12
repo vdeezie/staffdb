@@ -98,7 +98,19 @@ app.put('/staff/:id', (req, res) => {
  
 
 //Delete a staff from the database
-// app.delete
+app.delete('/staff/:id', (req, res) => {
+    Staff.findByIdAndDelete(req.params.id, (err, staff) => {
+        if (err) {
+            return res.status(500).json({message: err})
+        }
+        else if (!staff) {
+            return res.status(404).json({message: "staff was not found"})
+        }
+        else {
+            return res. status(200).json ({message: "staff deleted successfully"})
+        }
+    })
+})
 
 
 
