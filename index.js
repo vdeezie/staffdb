@@ -55,6 +55,17 @@ app.post('/staff', (req, res) => {
 })
 
 // fetches all staff data and send to client
+app.get('/', (req, res) => {
+Staff.find({}, (err, staff) =>{
+    if(err) {
+        return res.status(500).json ({message: err})
+    } else {
+        return res. status(200).json({ staff })
+    }
+})
+})
+
+
 app.get('/staff', (req, res) => {
     Staff.find({}, (err, staff) =>{
         if(err) {
