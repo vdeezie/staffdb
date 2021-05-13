@@ -1,7 +1,7 @@
 //require express module
 const express = require ('express');
 const app = express();
-// const port = process.env.PORT == 5000; 
+const port = process.env.PORT || 5000;
 
 //set up mongoose to connect to Atlas DB
 const mongoose = require ('mongoose');
@@ -120,4 +120,4 @@ app.delete('/staff/:id/', (req, res) => {
 
 
 //ask app to listen to designated port
-// app.listen(port, () => console.log (`app listening on port ${port}`));
+app.listen(port, () => console.log (`app listening on port ${port}`));
