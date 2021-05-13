@@ -1,23 +1,26 @@
 //require express module
 const express = require ('express');
 const app = express();
-const port = process.env.PORT || 5000; 
+// const port = process.env.PORT == 5000; 
 
-//set up mongoose
+//set up mongoose to connect to Atlas DB
 const mongoose = require ('mongoose');
-const connectionString = 'mongodb://localhost:27017/staff';
+const url = `mongodb+srv://vdeezie:595983fc@cluster0.pywbo.mongodb.net/<staff>?retryWrites=true&w=majority`;
 
-mongoose.connect(connectionString, {
+
+
+const connectionParams={
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}, (err) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log('database connected')
-    }
-})
+    useCreateIndex: true,
+    useUnifiedTopology: true 
+}
+mongoose.connect(url,connectionParams)
+    .then( () => {
+        console.log('Connected to database ')
+    })
+    .catch( (err) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    })
 
 //configure app to fetch data from request body
 app.use(express.json())
@@ -117,4 +120,4 @@ app.delete('/staff/:id/', (req, res) => {
 
 
 //ask app to listen to designated port
-app.listen(port, () => console.log (`app listening on port ${port}`));
+// app.listen(port, () => console.log (`app listening on port ${port}`));
