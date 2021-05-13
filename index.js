@@ -37,7 +37,7 @@ const Staff = mongoose.model('Staff', staffSchema)
 
 
 //creates a new staff 
-app.post('/staff/', (req, res) => {
+app.post('/staff', (req, res) => {
 
     Staff.create({
         name: req.body.name,
@@ -54,7 +54,7 @@ app.post('/staff/', (req, res) => {
 })
 
 // fetches all staff data and send to client
-app.get('/staff/', (req, res) => {
+app.get('/staff', (req, res) => {
     Staff.find({}, (err, staff) =>{
         if(err) {
             return res.status(500).json ({message: err})
@@ -65,7 +65,7 @@ app.get('/staff/', (req, res) => {
 })
 
 // fetches staff data by Id and send response to client
-app.get('/staff/:id/', (req, res) => {
+app.get('/staff/:id', (req, res) => {
     Staff.findById(req.params.id, (err, staff) =>{
         if(err) {
             return res.status(500).json ({message: err})
@@ -78,7 +78,7 @@ app.get('/staff/:id/', (req, res) => {
 })
 
 //update a staff in the database
-app.put('/staff/:id/', (req, res) => {
+app.put('/staff/:id', (req, res) => {
     Staff.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         position: req.body.position,
@@ -102,7 +102,7 @@ app.put('/staff/:id/', (req, res) => {
  
 
 //Delete a staff from the database
-app.delete('/staff/:id/', (req, res) => {
+app.delete('/staff/:id', (req, res) => {
     Staff.findByIdAndDelete(req.params.id, (err, staff) => {
         if (err) {
             return res.status(500).json({message: err})
