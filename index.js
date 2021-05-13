@@ -7,8 +7,6 @@ const port = process.env.PORT || 5000;
 const mongoose = require ('mongoose');
 const url = `mongodb+srv://vdeezie:595983fc@cluster0.pywbo.mongodb.net/<staff>?retryWrites=true&w=majority`;
 
-
-
 const connectionParams={
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -65,7 +63,6 @@ Staff.find({}, (err, staff) =>{
 })
 })
 
-
 app.get('/staff', (req, res) => {
     Staff.find({}, (err, staff) =>{
         if(err) {
@@ -89,7 +86,7 @@ app.get('/staff/:id', (req, res) => {
     })
 })
 
-//update a staff in the database
+//update staff record in the database
 app.put('/staff/:id', (req, res) => {
     Staff.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
@@ -113,7 +110,7 @@ app.put('/staff/:id', (req, res) => {
 }) 
  
 
-//Delete a staff from the database
+//Delete a staff by Id from the database
 app.delete('/staff/:id', (req, res) => {
     Staff.findByIdAndDelete(req.params.id, (err, staff) => {
         if (err) {
