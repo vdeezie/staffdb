@@ -12,7 +12,8 @@ const url = `mongodb+srv://vdeezie:595983fc@cluster0.pywbo.mongodb.net/<staff>?r
 const connectionParams={
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true, 
+    useFindAndModify: false
 }
 mongoose.connect(url,connectionParams)
     .then( () => {
@@ -59,7 +60,7 @@ app.get('/staff', (req, res) => {
         if(err) {
             return res.status(500).json ({message: err})
         } else {
-            return res. status(200).json({ staff })
+            return res. status(200).json({message: "successful", data: result})
         }
     })
 })
