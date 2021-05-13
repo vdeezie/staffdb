@@ -71,7 +71,7 @@ app.get('/staff', (req, res) => {
         if(err) {
             return res.status(500).json ({message: err})
         } else {
-            return res. status(200).json({message: "successful", data: result})
+            return res. status(200).json({message: "successful", data: staff})
         }
     })
 })
