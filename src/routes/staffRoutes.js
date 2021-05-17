@@ -7,7 +7,7 @@ router.post('/staff', StaffCtrl.createNewStaff)
 // fetches all staff data and send to client
 router.get('/', StaffCtrl.fetchStaff)
  
-router.get('/staff', StaffCtrl.fetchStaff)
+// router.get('/staff', StaffCtrl.fetchStaff)
 
 // fetches staff data by Id and send response to client
 router.get('/staff/:id', StaffCtrl.fetchsingleStaff)
