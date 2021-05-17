@@ -1,42 +1,6 @@
-//require express module
-const express = require ('express');
-const app = express();
-const port = process.env.PORT || 5000;
+const Staff = require('../models/staff');
 
-//set up mongoose to connect to Atlas DB
-const mongoose = require ('mongoose');
-const url = `mongodb+srv://vdeezie:595983fc@cluster0.pywbo.mongodb.net/<staff>?retryWrites=true&w=majority`;
-
-const connectionParams={
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true, 
-    useFindAndModify: false
-}
-mongoose.connect(url,connectionParams)
-    .then( () => {
-        console.log('Connected to database ')
-    })
-    .catch( (err) => {
-        console.error(`Error connecting to the database. \n${err}`);
-    })
-
-//configure app to fetch data from request body
-app.use(express.json())
-
-
-//Schema 
-const staffSchema = new mongoose.Schema ({
-    name: String,
-    position: String,
-    email: String,
-    country: String
-});
-const Staff = mongoose.model('Staff', staffSchema)
-
-
-//creates a new staff 
-app.post('/staff', (req, res) => {
+exports.createNewStaff = (req, res) => {
 
     Staff.create({
         name: req.body.name,
@@ -50,20 +14,9 @@ app.post('/staff', (req, res) => {
             return res.status(200).json({message: "new staff created", newStaff})
         }
     })
-})
+} 
 
-// fetches all staff data and send to client
-app.get('/', (req, res) => {
-Staff.find({}, (err, staff) =>{
-    if(err) {
-        return res.status(500).json ({message: err})
-    } else {
-        return res. status(200).json({ staff })
-    }
-})
-})
-
-app.get('/staff', (req, res) => {
+exports.fetchStaff = (req, res) => {
     Staff.find({}, (err, staff) =>{
         if(err) {
             return res.status(500).json ({message: err})
@@ -71,10 +24,9 @@ app.get('/staff', (req, res) => {
             return res. status(200).json({message: "successful", data: staff})
         }
     })
-})
+}
 
-// fetches staff data by Id and send response to client
-app.get('/staff/:id', (req, res) => {
+exports.fetchsingleStaff =  (req, res) => {
     Staff.findById(req.params.id, (err, staff) =>{
         if(err) {
             return res.status(500).json ({message: err})
@@ -84,10 +36,9 @@ app.get('/staff/:id', (req, res) => {
             return res. status(200).json({ staff })
         }
     })
-})
+}
 
-//update staff record in the database
-app.put('/staff/:id', (req, res) => {
+exports.updatesingleStaff = (req, res) => {
     Staff.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         position: req.body.position,
@@ -107,11 +58,9 @@ app.put('/staff/:id', (req, res) => {
             });
         } 
     })    
-}) 
- 
+}
 
-//Delete a staff by Id from the database
-app.delete('/staff/:id', (req, res) => {
+exports.deletesingleStaff = (req, res) => {
     Staff.findByIdAndDelete(req.params.id, (err, staff) => {
         if (err) {
             return res.status(500).json({message: err})
@@ -123,10 +72,4 @@ app.delete('/staff/:id', (req, res) => {
             return res. status(200).json ({message: "staff deleted successfully"})
         }
     })
-})
-
-
-
-
-//ask app to listen to designated port
-app.listen(port, () => console.log (`app listening on port ${port}`));
+}
